@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GZidan | Portfolio</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* 3-State Theme Variables */
+        :root[data-theme="neon"] {
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            --accent: #00ffcc;
+            --accent-hover: #00e6b8;
+            --card-bg: rgba(0, 255, 204, 0.03);
+            --border-color: rgba(0, 255, 204, 0.2);
+            --glow: 0 0 10px rgba(0, 255, 204, 0.5), 0 0 20px rgba(0, 255, 204, 0.3);
+            --box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-color: #121212;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #60a5fa;
+            --accent-hover: #3b82f6;
+            --card-bg: #1e1e1e;
+            --border-color: #374151;
+            --glow: none;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        :root[data-theme="light"] {
+            --bg-color: #f9fafb;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --glow: none;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        .tech-font { font-family: 'Fira Code', monospace; }
+
+        /* Dynamic Classes based on Theme Variables */
+        .theme-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--glow);
+        }
+
+        .theme-text-accent { color: var(--accent); text-shadow: var(--glow); }
+        .theme-bg-accent { background-color: var(--accent); box-shadow: var(--glow); }
+        .theme-border-accent { border-color: var(--accent); box-shadow: var(--glow); }
+
+        /* Fullscreen Intro Animation */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #loader.hide { opacity: 0; visibility: hidden; }
+        
+        .loader-text {
+            font-size: 3rem;
+            font-weight: 600;
+            font-family: 'Fira Code', monospace;
+            color: var(--accent);
+            text-shadow: var(--glow);
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        @media (max-width: 640px) { .loader-text { font-size: 2rem; } }
+
+        /* Skill Bar Animation */
+        .skill-fill {
+            width: 0;
+            height: 100%;
+            border-radius: 999px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Interactive Name */
+        .clickable-name { cursor: pointer; display: inline-block; transition: transform 0.2s ease; }
+        .clickable-name:active { transform: scale(0.95); }
+    </style>
+</head>
+<body data-theme="neon" class="antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- Intro / Click Loader -->
+    <div id="loader">
+        <div id="loader-text" class="loader-text">Gazi Zidan</div>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <button onclick="cycleTheme()" class="fixed top-4 right-4 z-50 p-3 rounded-full theme-card hover:scale-110 transition-transform flex items-center justify-center w-12 h-12" aria-label="Toggle Theme">
+        <i id="theme-icon" class="fas fa-bolt theme-text-accent text-xl"></i>
+    </button>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto px-6 py-20 min-h-screen flex flex-col justify-center">
+        
+        <!-- Header / Hero -->
+        <header class="mb-12 text-center md:text-left">
+            <p class="tech-font text-sm mb-2" style="color: var(--text-muted)">> Hello, World! I am</p>
+            <h1 onclick="triggerNameAnimation()" class="clickable-name text-5xl md:text-7xl font-bold mb-4 tech-font theme-text-accent">
+                GZidan
+            </h1>
+            <h2 class="text-xl md:text-2xl font-semibold mb-4" style="color: var(--text-muted)">
+                Tech Enthusiast & Student
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed max-w-2xl mx-auto md:mx-0" style="color: var(--text-muted)">
+                Hi, I'm Zidan, a tech enthusiast from Bangladesh. Currently studying in the 9th grade (Science), I have a deep passion for hardware, coding, and exploring the endless possibilities of technology. Always building, always learning.
+            </p>
+        </header>
+
+        <!-- Skills Section -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-semibold mb-6 tech-font flex items-center gap-2 theme-text-accent">
+                <i class="fas fa-code"></i> Skills_
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="skills-container">
+                <!-- Skills generated by JS -->
+            </div>
+        </section>
+
+        <!-- Projects / Links Section -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-semibold mb-6 tech-font flex items-center gap-2 theme-text-accent">
+                <i class="fas fa-folder-open"></i> Projects_
+            </h3>
+            <a href="https://bd.gzidan.xyz" target="_blank" class="block theme-card rounded-xl p-6 group">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="text-xl font-semibold group-hover:theme-text-accent transition-colors">Birthday Wish Web</h4>
+                        <p class="text-sm mt-2" style="color: var(--text-muted)">A specialized interactive platform for sending custom birthday wishes.</p>
+                    </div>
+                    <i class="fas fa-arrow-right transform -rotate-45 group-hover:rotate-0 transition-transform text-xl" style="color: var(--text-muted)"></i>
+                </div>
+            </a>
+        </section>
+
+        <!-- Social Media Section -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-semibold mb-6 tech-font flex items-center gap-2 theme-text-accent">
+                <i class="fas fa-network-wired"></i> Connect_
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <a href="#" class="theme-card p-4 rounded-xl flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform">
+                    <i class="fab fa-discord text-3xl theme-text-accent"></i>
+                    <span class="font-medium text-sm">zidanvai</span>
+                </a>
+                <a href="https://youtube.com/@GZidan" target="_blank" class="theme-card p-4 rounded-xl flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform">
+                    <i class="fab fa-youtube text-3xl theme-text-accent"></i>
+                    <span class="font-medium text-sm">GZidan</span>
+                </a>
+                <a href="https://t.me/gzzidan" target="_blank" class="theme-card p-4 rounded-xl flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform">
+                    <i class="fab fa-telegram text-3xl theme-text-accent"></i>
+                    <span class="font-medium text-sm">gzzidan</span>
+                </a>
+                <a href="https://instagram.com/_zidan.69" target="_blank" class="theme-card p-4 rounded-xl flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform">
+                    <i class="fab fa-instagram text-3xl theme-text-accent"></i>
+                    <span class="font-medium text-sm">_zidan.69</span>
+                </a>
+            </div>
+        </section>
+
+        <footer class="text-center pb-8 pt-4 border-t" style="border-color: var(--border-color)">
+            <p class="text-sm tech-font" style="color: var(--text-muted)">© 2026 GZidan. All rights reserved.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- 1. Loader Animation Logic ---
+        const loader = document.getElementById('loader');
+        const loaderText = document.getElementById('loader-text');
+        
+        async function runIntroAnimation() {
+            loader.classList.remove('hide');
+            loaderText.style.opacity = 0;
+            
+            // Step 1: Show full name
+            setTimeout(() => {
+                loaderText.innerText = "Gazi Zidan";
+                loaderText.style.transition = "opacity 0.5s, transform 0.5s";
+                loaderText.style.opacity = 1;
+                loaderText.style.transform = "scale(1)";
+            }, 100);
+
+            // Step 2: Glitch/Shrink to GZidan
+            setTimeout(() => {
+                loaderText.style.transform = "scale(0.8)";
+                loaderText.style.opacity = 0;
+                
+                setTimeout(() => {
+                    loaderText.innerText = "GZidan";
+                    loaderText.style.transform = "scale(1.1)";
+                    loaderText.style.opacity = 1;
+                }, 300);
+
+            }, 1800);
+
+            // Step 3: Hide Loader
+            setTimeout(() => {
+                loader.classList.add('hide');
+                animateSkills(); // Trigger skill bars when loader hides
+            }, 3000);
+        }
+
+        // Trigger on load
+        window.onload = runIntroAnimation;
+
+        // Trigger on name click
+        function triggerNameAnimation() {
+            runIntroAnimation();
+        }
+
+
+        // --- 2. Theme Toggle Logic (Neon -> Dark -> Light) ---
+        const themes = ['neon', 'dark', 'light'];
+        const icons = ['fa-bolt', 'fa-moon', 'fa-sun'];
+        let currentThemeIndex = 0;
+
+        function cycleTheme() {
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            const newTheme = themes[currentThemeIndex];
+            const iconClass = icons[currentThemeIndex];
+            
+            document.body.setAttribute('data-theme', newTheme);
+            
+            const iconEl = document.getElementById('theme-icon');
+            iconEl.className = `fas ${iconClass} theme-text-accent text-xl transition-all duration-300`;
+        }
+
+
+        // --- 3. Skills Animation Logic ---
+        const skillsData = [
+            { name: "HTML", percent: 90 },
+            { name: "CSS", percent: 10 },
+            { name: "JavaScript", percent: 10 },
+            { name: "Python", percent: 20 }
+        ];
+
+        const skillsContainer = document.getElementById('skills-container');
+
+        // Render skills HTML
+        skillsData.forEach(skill => {
+            skillsContainer.innerHTML += `
+                <div class="theme-card p-4 rounded-xl">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium tech-font">${skill.name}</span>
+                        <span class="tech-font theme-text-accent">${skill.percent}%</span>
+                    </div>
+                    <div class="w-full h-2 rounded-full" style="background-color: var(--border-color)">
+                        <div class="skill-fill theme-bg-accent" data-target="${skill.percent}"></div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Animate widths
+        function animateSkills() {
+            const fills = document.querySelectorAll('.skill-fill');
+            fills.forEach(fill => {
+                const target = fill.getAttribute('data-target');
+                setTimeout(() => {
+                    fill.style.width = target + '%';
+                }, 200);
+            });
+        }
+    </script>
+</body>
+</html>
